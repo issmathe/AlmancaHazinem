@@ -40,12 +40,12 @@ const Deneme = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
-        <h1 className="text-2xl font-semibold mb-6 text-center">Veri Ekle</h1>
+    <div className="bg-gray-100">
+      <div className="bg-white shadow-lg rounded-lg p-4 w-full max-w-md mx-auto mt-4">
+        <h1 className="text-xl font-semibold mb-4 text-center">Veri Ekle</h1>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="title" className="block mb-2 font-medium text-gray-700">
+          <div className="mb-3">
+            <label htmlFor="title" className="block mb-1 font-medium text-gray-700">
               Başlık (Title)
             </label>
             <Input
@@ -57,8 +57,8 @@ const Deneme = () => {
               required
             />
           </div>
-          <div className="mb-4">
-            <label htmlFor="name" className="block mb-2 font-medium text-gray-700">
+          <div className="mb-3">
+            <label htmlFor="name" className="block mb-1 font-medium text-gray-700">
               İsim (Name)
             </label>
             <Input
@@ -70,8 +70,8 @@ const Deneme = () => {
               required
             />
           </div>
-          <div className="mb-4">
-            <label htmlFor="price" className="block mb-2 font-medium text-gray-700">
+          <div className="mb-3">
+            <label htmlFor="price" className="block mb-1 font-medium text-gray-700">
               Fiyat (Price)
             </label>
             <Input
