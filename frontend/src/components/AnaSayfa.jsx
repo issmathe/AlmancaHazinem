@@ -1,17 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 
 const AnaSayfa = () => {
+  const [showArticles, setShowArticles] = useState(false);
+
+  const handleShowArticles = () => {
+    setShowArticles(true);
+  };
+
+  const handleGoBack = () => {
+    setShowArticles(false);
+  };
+
   return (
     <div style={styles.container}>
       <header style={styles.header}>
         <h1 style={styles.title}>Almanca Hazinem</h1>
       </header>
       <div style={styles.menu}>
-        <button style={styles.button}>Anasayfa</button>
-        <button style={styles.button}>Kelimeler</button>
-        <button style={styles.button}>Tekrar</button>
-        <button style={styles.button}>Oyun</button>
-        <button style={styles.button}>Bize Ulaşın</button>
+        {!showArticles ? (
+          <>
+            <button style={styles.button}>Anasayfa</button>
+            <button style={styles.button} onClick={handleShowArticles}>
+              Kelimeler
+            </button>
+            <button style={styles.button}>Tekrar</button>
+            <button style={styles.button}>Oyun</button>
+            <button style={styles.button}>Bize Ulaşın</button>
+          </>
+        ) : (
+          <>
+            <button style={styles.button} onClick={handleGoBack}>
+              Geri Dön
+            </button>
+            <button style={styles.button}>Der Artikel</button>
+            <button style={styles.button}>Die Artikel</button>
+            <button style={styles.button}>Das Artikel</button>
+          </>
+        )}
       </div>
     </div>
   );
