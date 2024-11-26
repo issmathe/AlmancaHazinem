@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Input, Form, message } from "antd";
 
-const DerArtikelPage = () => {
+const DerArtikel = () => {
   const [form] = Form.useForm();
 
   const onFinish = async (values) => {
@@ -70,4 +70,4 @@ const DerArtikelPage = () => {
   );
 };
 
-export default DerArtikelPage;
+export default DerArtikel;
