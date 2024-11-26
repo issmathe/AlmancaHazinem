@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const AnaSayfa = () => {
-  const [showArticles, setShowArticles] = useState(false);
+  const navigate = useNavigate();
 
-  const handleShowArticles = () => {
-    setShowArticles(true);
-  };
-
-  const handleGoBack = () => {
-    setShowArticles(false);
+  const handleKelimelerClick = () => {
+    navigate("/KelimelerPage"); // KelimelerPage sayfasına yönlendirme
   };
 
   return (
@@ -17,26 +14,13 @@ const AnaSayfa = () => {
         <h1 style={styles.title}>Almanca Hazinem</h1>
       </header>
       <div style={styles.menu}>
-        {!showArticles ? (
-          <>
-            <button style={styles.button}>Anasayfa</button>
-            <button style={styles.button} onClick={handleShowArticles}>
-              Kelimeler
-            </button>
-            <button style={styles.button}>Tekrar</button>
-            <button style={styles.button}>Oyun</button>
-            <button style={styles.button}>Bize Ulaşın</button>
-          </>
-        ) : (
-          <>
-            <button style={styles.button} onClick={handleGoBack}>
-              Geri Dön
-            </button>
-            <button style={styles.button}>Der Artikel</button>
-            <button style={styles.button}>Die Artikel</button>
-            <button style={styles.button}>Das Artikel</button>
-          </>
-        )}
+        <button style={styles.button}>Anasayfa</button>
+        <button style={styles.button} onClick={handleKelimelerClick}>
+          Kelimeler
+        </button>
+        <button style={styles.button}>Tekrar</button>
+        <button style={styles.button}>Oyun</button>
+        <button style={styles.button}>Bize Ulaşın</button>
       </div>
     </div>
   );

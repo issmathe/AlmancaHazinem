@@ -1,106 +1,73 @@
+import React from "react";
+import { Button, Input, Form, message } from "antd";
 
-import React, { useState } from "react";
+const DerArtikelPage = () => {
+  const [form] = Form.useForm();
 
-const DerArtikel = () => {
-  const [word, setWord] = useState("");
-  const [translation, setTranslation] = useState("");
+  const onFinish = async (values) => {
+    console.log("Kaydedilen Veriler:", values);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Şimdilik sadece console.log ile gönderim simule ediliyor
-    console.log("Kelime:", word, "Türkçe Karşılığı:", translation);
+    try {
+      // POST isteği ile veriyi sunucuya gönder
+      const response = await fetch(process.env.REACT_APP_SERVER_URL + "/api", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: values.title, // title verisi
+          name: values.name,   // name verisi
+        }),
+      });
 
-    // Formu temizle
-    setWord("");
-    setTranslation("");
+      // Sunucudan gelen yanıtı kontrol et
+      if (response.ok) {
+        message.success("Veri başarıyla kaydedildi!");
+        form.resetFields(); // Formu temizle
+      } else {
+        message.error("Bir hata oluştu, lütfen tekrar deneyin.");
+      }
+    } catch (error) {
+      console.error("Hata:", error);
+      message.error("Bir hata oluştu, lütfen internet bağlantınızı kontrol edin.");
+    }
   };
 
   return (
-    <div style={styles.container}>
-      <header style={styles.header}>
-        <h1 style={styles.title}>Der Artikel Kelime Ekle</h1>
-      </header>
-      <form style={styles.form} onSubmit={handleSubmit}>
-        <label style={styles.label}>
-          Almanca Kelime (der):
-          <input
-            type="text"
-            value={word}
-            onChange={(e) => setWord(e.target.value)}
-            style={styles.input}
-            placeholder="Örn: der Tisch"
-            required
-          />
-        </label>
-        <label style={styles.label}>
-          Türkçe Karşılığı:
-          <input
-            type="text"
-            value={translation}
-            onChange={(e) => setTranslation(e.target.value)}
-            style={styles.input}
-            placeholder="Örn: Masa"
-            required
-          />
-        </label>
-        <button type="submit" style={styles.button}>
-          Kaydet
-        </button>
-      </form>
+    <div className="flex flex-col items-center p-5 bg-gray-100 min-h-screen">
+      <h1 className="text-2xl font-bold text-gray-700 mb-5">
+        Der Artikel Kelime Ekle
+      </h1>
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={onFinish}
+        className="w-full max-w-md bg-white p-5 rounded-lg shadow-lg"
+      >
+        <Form.Item
+          label="Başlık"
+          name="title"
+          rules={[{ required: true, message: "Başlık alanı zorunludur!" }]}
+        >
+          <Input placeholder="Örn: Öğrenilecek Kelimeler" />
+        </Form.Item>
+        
+        <Form.Item
+          label="İsim"
+          name="name"
+          rules={[{ required: true, message: "İsim alanı zorunludur!" }]}
+        >
+          <Input placeholder="Örn: Yusuf" />
+        </Form.Item>
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit" className="w-full">
+            Kaydet
+          </Button>
+        </Form.Item>
+      </Form>
     </div>
   );
 };
 
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    height: "100vh",
-    backgroundColor: "#f9f9f9",
-    padding: "20px",
-  },
-  header: {
-    marginBottom: "20px",
-    textAlign: "center",
-  },
-  title: {
-    fontSize: "20px",
-    fontWeight: "bold",
-    color: "#333",
-  },
-  form: {
-    width: "100%",
-    maxWidth: "400px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "15px",
-  },
-  label: {
-    fontSize: "16px",
-    fontWeight: "bold",
-    color: "#555",
-    display: "flex",
-    flexDirection: "column",
-  },
-  input: {
-    padding: "10px",
-    fontSize: "14px",
-    border: "1px solid #ccc",
-    borderRadius: "5px",
-    marginTop: "5px",
-  },
-  button: {
-    padding: "15px",
-    backgroundColor: "#4CAF50",
-    color: "#fff",
-    fontSize: "16px",
-    border: "none",
-    borderRadius: "5px",
-    textAlign: "center",
-    cursor: "pointer",
-  },
-};
-
-export default DerArtikel;
-
+export default DerArtikelPage;

@@ -1,14 +1,12 @@
-import React from 'react'
-import Sayfa from '../components/AnaSayfa.jsx'
+import React from "react";
+import AnaSayfa from "../components/AnaSayfa";
 
 const Home = () => {
   return (
     <div>
-              <Sayfa/>
-
-
+      <AnaSayfa />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
