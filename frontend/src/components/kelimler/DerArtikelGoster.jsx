@@ -22,7 +22,7 @@ const DerArtikelGoster = () => {
   }, []);
 
   const handleDelete = (id) => {
-    // Silme işlemi
+    // Silme işlemini
     const deleteRecord = async () => {
       try {
         const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/${id}`, {
