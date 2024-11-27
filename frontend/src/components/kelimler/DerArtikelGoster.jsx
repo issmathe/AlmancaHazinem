@@ -1,72 +1,157 @@
-import React, { useEffect, useState } from "react";
-import { Card, Button, message, Row, Col, Spin } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+import React, { useState, useEffect } from "react";
+import { Button, Input, Form, message } from "antd";
 
 const DerArtikelGoster = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [kelimeler, setKelimeler] = useState([]);
+  const [editingRecord, setEditingRecord] = useState(null);
+  const [form] = Form.useForm();
 
-  // Veriyi almak için useEffect kullanıyoruz
   useEffect(() => {
+    // Verileri veri tabanından al
     const fetchData = async () => {
       try {
         const response = await fetch(process.env.REACT_APP_SERVER_URL + "/api");
-        const result = await response.json();
-
-        if (response.ok) {
-          setData(result); // Gelen veriyi state'e set et
-        } else {
-          message.error("Veri yüklenirken bir hata oluştu.");
-        }
+        const data = await response.json();
+        setKelimeler(data);
       } catch (error) {
         console.error("Hata:", error);
-        message.error("Bir hata oluştu, lütfen internet bağlantınızı kontrol edin.");
-      } finally {
-        setLoading(false);
+        message.error("Veri alırken bir hata oluştu.");
       }
     };
-
     fetchData();
   }, []);
 
-  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+  const handleDelete = (id) => {
+    // Silme işlemi
+    const deleteRecord = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/${id}`, {
+          method: "DELETE",
+        });
+        if (response.ok) {
+          message.success("Kelime başarıyla silindi!");
+          setKelimeler(kelimeler.filter(kelime => kelime._id !== id));
+        } else {
+          message.error("Silme işlemi başarısız.");
+        }
+      } catch (error) {
+        console.error("Hata:", error);
+        message.error("Silme işlemi sırasında bir hata oluştu.");
+      }
+    };
+    deleteRecord();
+  };
+
+  const handleEdit = (id) => {
+    // Düzenleme işlemi
+    const recordToEdit = kelimeler.find(kelime => kelime._id === id);
+    setEditingRecord(recordToEdit);
+    form.setFieldsValue({
+      deutch: recordToEdit.deutch,
+      turkich: recordToEdit.turkich,
+    });
+  };
+
+  const handleSave = async () => {
+    // Kaydetme işlemi
+    if (!editingRecord) return;
+
+    const updatedRecord = form.getFieldsValue();
+
+    try {
+      const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/${editingRecord._id}`, {
+        method: "PUT",  // PUT isteği, mevcut kaydı güncellemek için
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          deutch: updatedRecord.deutch,
+          turkich: updatedRecord.turkich,
+        }),
+      });
+
+      if (response.ok) {
+        message.success("Kelime başarıyla güncellendi!");
+        setKelimeler(kelimeler.map(kelime => kelime._id === editingRecord._id ? { ...kelime, ...updatedRecord } : kelime));
+        setEditingRecord(null);  // Düzenlemeyi bitir
+        form.resetFields();  // Formu sıfırla
+      } else {
+        message.error("Güncelleme işlemi başarısız.");
+      }
+    } catch (error) {
+      console.error("Hata:", error);
+      message.error("Güncelleme işlemi sırasında bir hata oluştu.");
+    }
+  };
 
   return (
-    <div className="flex flex-col items-center p-5 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold text-gray-700 mb-5">Der Artikel Verileri</h1>
+    <div className="flex flex-col items-center p-5 bg-gray-100">
+      <h1 className="text-2xl font-bold text-gray-700 mb-5">Eklediğim Kelimeler</h1>
 
-      {/* Loading Spinner */}
-      {loading ? (
-        <Spin indicator={antIcon} />
-      ) : (
-        <Row gutter={[16, 16]} className="w-full max-w-4xl">
-          {/* Veriyi Listeleme */}
-          {data.map((item, index) => (
-            <Col xs={24} sm={12} lg={8} key={index}>
-              <Card
-                title={item.title}
-                bordered={false}
-                className="w-full h-full shadow-lg"
-                bodyStyle={{ padding: "10px" }}
-              >
-                <p><strong>İsim:</strong> {item.name}</p>
-                <Button type="primary" className="w-full mt-4">
-                  Detaylar
-                </Button>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+      {/* Düzenleme Formu */}
+      {editingRecord && (
+        <div className="w-full max-w-md mb-5">
+          <h2 className="text-xl font-semibold text-gray-700">Kelime Düzenle</h2>
+          <Form
+            form={form}
+            layout="vertical"
+            onFinish={handleSave}
+            initialValues={{
+              deutch: editingRecord.deutch,
+              turkich: editingRecord.turkich,
+            }}
+            className="bg-white p-5 rounded-lg shadow-lg"
+          >
+            <Form.Item
+              label="Almanca Kelime"
+              name="deutch"
+              rules={[{ required: true, message: "Almanca kelime zorunludur!" }]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Türkçe Karşılık"
+              name="turkich"
+              rules={[{ required: true, message: "Türkçe karşılık zorunludur!" }]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item>
+              <Button type="primary" htmlType="submit" className="w-full">
+                Kaydet
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
       )}
 
-      {/* Geri Dön butonu */}
-      <Button
-        type="default"
-        onClick={() => window.history.back()}
-        className="mt-5"
-      >
-        Geri Dön
-      </Button>
+      {/* Başlıklar Sabit */}
+      <div className="flex w-full max-w-4xl mb-2 p-2 bg-gray-200 text-gray-600 font-semibold justify-between">
+        <div className="w-1/6 sm:w-1/6 md:w-1/6 lg:w-1/6 text-center">Numara</div>
+        <div className="w-1/4 sm:w-1/4 md:w-1/4 lg:w-1/4 text-center">Eklendi</div>
+        <div className="w-1/4 sm:w-1/4 md:w-1/4 lg:w-1/4 text-center">Almanca Kelime</div>
+        <div className="w-1/4 sm:w-1/4 md:w-1/4 lg:w-1/4 text-center">Türkçe Karşılık</div>
+        <div className="w-1/6 sm:w-1/6 md:w-1/6 lg:w-1/6 text-center">İşlemler</div>
+      </div>
+
+      {kelimeler.length > 0 ? (
+        kelimeler.map((kelime, index) => (
+          <div key={kelime._id} className="flex w-full max-w-4xl mb-3 p-3 bg-white rounded-lg shadow-md justify-between">
+            <div className="w-1/6 sm:w-1/6 md:w-1/6 lg:w-1/6 text-center">{index + 1}</div>
+            <div className="w-1/4 sm:w-1/4 md:w-1/4 lg:w-1/4 text-center">{new Date(kelime.createdAt).toLocaleString()}</div>
+            <div className="w-1/4 sm:w-1/4 md:w-1/4 lg:w-1/4 text-center">{kelime.correctArticle} {kelime.deutch}</div>
+            <div className="w-1/4 sm:w-1/4 md:w-1/4 lg:w-1/4 text-center">{kelime.turkich}</div>
+            <div className="w-1/6 sm:w-1/6 md:w-1/6 lg:w-1/6 flex space-x-2 justify-center">
+              <Button type="primary" onClick={() => handleEdit(kelime._id)}>Düzenle</Button>
+              <Button type="danger" className="bg-red-600 text-white hover:bg-red-700" onClick={() => handleDelete(kelime._id)}>Sil</Button>
+              </div>
+          </div>
+        ))
+      ) : (
+        <p>Henüz veri bulunmamaktadır.</p>
+      )}
     </div>
   );
 };

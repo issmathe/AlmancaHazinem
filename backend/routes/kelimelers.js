@@ -1,4 +1,4 @@
-const Category=require("../models/Deneme")
+const Category=require("../models/Kelimeler")
 const express=require("express")
 const router=express.Router()
 
