@@ -102,19 +102,19 @@ const DerArtikelGoster = () => {
 
       {/* Başlıklar Sabit */}
       <div className="flex w-full max-w-4xl mb-2 p-2 bg-gray-200 text-gray-600 font-semibold justify-between">
-        <div className="w-1/6 sm:w-1/6 md:w-1/6 lg:w-1/6 text-center">Numara</div>
-        <div className="w-1/3 sm:w-1/3 md:w-1/3 lg:w-1/3 text-center">Almanca Kelime</div>
-        <div className="w-1/3 sm:w-1/3 md:w-1/3 lg:w-1/3 text-center">Türkçe Karşılık</div>
-        <div className="w-1/6 sm:w-1/6 md:w-1/6 lg:w-1/6 text-center">İşlemler</div>
+        <div className="w-1/12 text-center"> {/* Numara sütununun genişliği daraltıldı */} </div>
+        <div className="w-1/3 text-center">Almanca Kelime</div>
+        <div className="w-1/3 text-center">Türkçe Karşılık</div>
+        <div className="w-1/6 text-center">İşlemler</div>
       </div>
 
       {kelimeler.length > 0 ? (
         kelimeler.map((kelime, index) => (
           <div key={kelime._id} className="flex w-full max-w-4xl mb-3 p-3 bg-white rounded-lg shadow-md justify-between">
-            <div className="w-1/6 sm:w-1/6 md:w-1/6 lg:w-1/6 text-center">{index + 1}</div>
-            <div className="w-1/3 sm:w-1/3 md:w-1/3 lg:w-1/3 text-center">{kelime.deutch}</div>
-            <div className="w-1/3 sm:w-1/3 md:w-1/3 lg:w-1/3 text-center">{kelime.turkich}</div>
-            <div className="w-1/6 sm:w-1/6 md:w-1/6 lg:w-1/6 flex space-x-2 justify-center">
+            <div className="w-1/12 text-center">{index + 1}</div> {/* Sayılar burada gösteriliyor */}
+            <div className="w-1/3 text-center">{kelime.deutch}</div>
+            <div className="w-1/3 text-center">{kelime.turkich}</div>
+            <div className="w-1/6 flex space-x-2 justify-center">
               <Button type="primary" onClick={() => handleEdit(kelime._id)}>Düzenle</Button>
               <Button type="danger" className="bg-red-600 text-white hover:bg-red-700" onClick={() => handleDelete(kelime._id)}>Sil</Button>
             </div>
