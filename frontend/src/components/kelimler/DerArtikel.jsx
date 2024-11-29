@@ -6,6 +6,9 @@ const DerArtikel = ({ initialArticle = "der" }) => {
   const navigate = useNavigate(); // Initialize the navigate function
 
   const onFinish = async (values) => {
+    // Burada sayfanın yenilenmesini engellemek için event.preventDefault() kullanmamıza gerek yok.
+    // Formun onFinish özelliği zaten submit işleminden sonra sayfa yenilenmesini engelliyor.
+
     console.log("Kaydedilen Veriler:", {
       ...values,
       correctArticle: initialArticle,
@@ -29,7 +32,6 @@ const DerArtikel = ({ initialArticle = "der" }) => {
       if (response.ok) {
         message.success("Kelime başarıyla kaydedildi!");
         form.resetFields();
-        window.location.reload();
       } else {
         message.error("Bir hata oluştu, lütfen tekrar deneyin.");
       }
@@ -78,8 +80,12 @@ const DerArtikel = ({ initialArticle = "der" }) => {
           <Input placeholder="Örn: Öğretmen" />
         </Form.Item>
 
-        <Form.Item className="flex flex-col md:flex-row justify-between gap-4">
-          <Button type="primary" htmlType="submit" className="w-full md:w-48">
+        <Form.Item className="flex flex-col items-center gap-4">
+          <Button 
+            type="primary" 
+            htmlType="submit" 
+            className="w-full md:w-48"
+          >
             Kaydet
           </Button>
 
@@ -87,7 +93,7 @@ const DerArtikel = ({ initialArticle = "der" }) => {
           <Button 
             type="default" 
             onClick={handleBack} 
-            className="mt-4 md:mt-0 w-full md:w-48 bg-red-500 text-white hover:bg-red-600"
+            className="w-full md:w-48 bg-red-500 text-white hover:bg-red-600"
           >
             Geri
           </Button>
