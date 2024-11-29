@@ -31,6 +31,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    justifyContent: "center", // Dikey ortalama
     height: "100vh",
     backgroundColor: "#f0f0f0",
     padding: "10px",
@@ -49,6 +50,7 @@ const styles = {
     maxWidth: "400px",
     display: "flex",
     flexDirection: "column",
+    alignItems: "center", // Yatayda ortalama
     gap: "10px",
   },
   button: {
@@ -60,6 +62,7 @@ const styles = {
     borderRadius: "5px",
     textAlign: "center",
     cursor: "pointer",
+    width: "100%", // Butonlar genişliğe uyum sağlar
   },
 };
 
