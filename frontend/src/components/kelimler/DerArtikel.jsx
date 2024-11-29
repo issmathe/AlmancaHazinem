@@ -6,9 +6,6 @@ const DerArtikel = ({ initialArticle = "der" }) => {
   const navigate = useNavigate(); // Initialize the navigate function
 
   const onFinish = async (values) => {
-    // Burada sayfanın yenilenmesini engellemek için event.preventDefault() kullanmamıza gerek yok.
-    // Formun onFinish özelliği zaten submit işleminden sonra sayfa yenilenmesini engelliyor.
-
     console.log("Kaydedilen Veriler:", {
       ...values,
       correctArticle: initialArticle,
@@ -80,20 +77,20 @@ const DerArtikel = ({ initialArticle = "der" }) => {
           <Input placeholder="Örn: Öğretmen" />
         </Form.Item>
 
-        <Form.Item className="flex flex-col items-center gap-4">
+        {/* Kaydet ve Geri butonları yan yana olacak şekilde düzenlendi */}
+        <Form.Item className="flex justify-between gap-4">
           <Button 
             type="primary" 
             htmlType="submit" 
-            className="w-full md:w-48"
+            className="w-48"
           >
             Kaydet
           </Button>
 
-          {/* Geri button */}
           <Button 
             type="default" 
             onClick={handleBack} 
-            className="w-full md:w-48 bg-red-500 text-white hover:bg-red-600"
+            className="w-48 bg-red-500 text-white hover:bg-red-600"
           >
             Geri
           </Button>
