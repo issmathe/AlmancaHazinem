@@ -77,26 +77,27 @@ const DerArtikel = ({ initialArticle = "der" }) => {
           <Input placeholder="Örn: Öğretmen" />
         </Form.Item>
 
-        {/* Kaydet ve Geri butonları yan yana olacak şekilde düzenlendi */}
-        <Form.Item className="flex justify-between gap-4">
+        {/* Butonlar alt alta olacak */}
+        <Form.Item className="w-full mt-4">
           <Button 
             type="primary" 
             htmlType="submit" 
-            className="w-48"
+            className="w-full bg-blue-500 text-white hover:bg-blue-600"
           >
             Kaydet
           </Button>
+        </Form.Item>
 
+        <Form.Item className="w-full mt-4">
           <Button 
             type="default" 
             onClick={handleBack} 
-            className="w-48 bg-red-500 text-white hover:bg-red-600"
+            className="w-full bg-red-500 text-white hover:bg-red-600"
           >
             Geri
           </Button>
         </Form.Item>
 
-        {/* Anasayfa button */}
         <Form.Item className="w-full mt-4">
           <Button 
             onClick={handleHome} 
