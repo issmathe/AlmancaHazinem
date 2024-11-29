@@ -79,7 +79,7 @@ const DerArtikel = ({ initialArticle = "der" }) => {
         </Form.Item>
 
         <Form.Item className="flex justify-between">
-          <Button type="primary" htmlType="submit" className="w-48">
+          <Button type="primary" htmlType="submit" className="w-40">
             Kaydet
           </Button>
 
@@ -87,7 +87,7 @@ const DerArtikel = ({ initialArticle = "der" }) => {
           <Button 
             type="default" 
             onClick={handleBack} 
-            className="ml-3 w-48 bg-red-500 text-white hover:bg-red-600"
+            className="ml-3 w-40 bg-red-500 text-white hover:bg-red-600"
           >
             Geri
           </Button>
