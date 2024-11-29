@@ -78,8 +78,8 @@ const DerArtikel = ({ initialArticle = "der" }) => {
           <Input placeholder="Örn: Öğretmen" />
         </Form.Item>
 
-        <Form.Item className="flex justify-between">
-          <Button type="primary" htmlType="submit" className="w-40">
+        <Form.Item className="flex flex-col md:flex-row justify-between gap-4">
+          <Button type="primary" htmlType="submit" className="w-full md:w-48">
             Kaydet
           </Button>
 
@@ -87,7 +87,7 @@ const DerArtikel = ({ initialArticle = "der" }) => {
           <Button 
             type="default" 
             onClick={handleBack} 
-            className="ml-3 w-40 bg-red-500 text-white hover:bg-red-600"
+            className="mt-4 md:mt-0 w-full md:w-48 bg-red-500 text-white hover:bg-red-600"
           >
             Geri
           </Button>
