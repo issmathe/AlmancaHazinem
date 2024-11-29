@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Button, Input, Form, message } from "antd";
 
 const DerArtikel = ({ initialArticle = "der" }) => {
@@ -23,8 +24,6 @@ const DerArtikel = ({ initialArticle = "der" }) => {
       if (response.ok) {
         message.success("Kelime başarıyla kaydedildi!");
         form.resetFields();
-        // Sayfayı yeniden yükle
-        window.location.reload();
       } else {
         message.error("Bir hata oluştu, lütfen tekrar deneyin.");
       }
@@ -35,8 +34,8 @@ const DerArtikel = ({ initialArticle = "der" }) => {
   };
 
   return (
-    <div className="flex flex-col items-center p-5 bg-gray-100">
-      <h1 className="text-2xl font-bold text-gray-700 mb-5">Der Artikelli Kelime Ekle</h1>
+<div className="flex flex-col items-center p-5 bg-gray-100">
+<h1 className="text-2xl font-bold text-gray-700 mb-5">Der Artikelli Kelime Ekle</h1>
       <Form
         form={form}
         layout="vertical"

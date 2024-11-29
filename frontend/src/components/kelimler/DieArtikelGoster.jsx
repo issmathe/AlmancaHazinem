@@ -127,7 +127,7 @@ const DerArtikelGoster = () => {
       {/* Modal - Düzenleme Formu */}
       <Modal
         title="Kelime Düzenle"
-        open={isModalVisible}  // 'visible' yerine 'open' kullanıldı
+        visible={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
         footer={null}
       >
