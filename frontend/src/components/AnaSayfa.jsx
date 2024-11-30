@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import resim from "../assets/images/almancahazinem.jpg"; 
 
 const AnaSayfa = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const AnaSayfa = () => {
   return (
     <div style={styles.container}>
       <header style={styles.header}>
-        <h1 style={styles.title}>Almanca Hazinem</h1>
+        <img  src={resim} alt="Örnek Resim" className="w-64 h-auto" />
       </header>
       <div style={styles.menu}>
         <button style={styles.button}>Anasayfa</button>

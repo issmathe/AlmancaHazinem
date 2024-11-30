@@ -29,7 +29,7 @@ const KelimelerPage = () => {
           type="default"
           className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg h-12"
         >
-          Die Artikel
+          Die Artikel 
         </Button>
         <Button
           type="default"
