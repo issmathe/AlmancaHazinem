@@ -10,61 +10,32 @@ const AnaSayfa = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <header style={styles.header}>
-        <img  src={resim} alt="Örnek Resim" className="w-64 h-auto" />
+    <div className="flex flex-col items-center justify-center min-h-screen bg-blue-100 p-4">
+      <header className="mb-5 text-center">
+        <img src={resim} alt="Örnek Resim" className="rounded-lg w-64 h-auto" />
       </header>
-      <div style={styles.menu}>
-        <button style={styles.button}>Anasayfa</button>
-        <button style={styles.button} onClick={handleKelimelerClick}>
+      <div className="w-full max-w-md flex flex-col gap-4">
+        <button className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg py-3">
+          Anasayfa
+        </button>
+        <button
+          className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg py-3"
+          onClick={handleKelimelerClick}
+        >
           Kelimeler
         </button>
-        <button style={styles.button}>Tekrar</button>
-        <button style={styles.button}>Oyun</button>
-        <button style={styles.button}>Bize Ulaşın</button>
+        <button className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg py-3">
+          Tekrar
+        </button>
+        <button className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg py-3">
+          Oyun
+        </button>
+        <button className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg py-3">
+          Bize Ulaşın
+        </button>
       </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center", // Dikey ortalama
-    height: "100vh",
-    backgroundColor: "#f0f0f0",
-    padding: "10px",
-  },
-  header: {
-    marginBottom: "20px",
-    textAlign: "center",
-  },
-  title: {
-    fontSize: "24px",
-    fontWeight: "bold",
-    color: "#333",
-  },
-  menu: {
-    width: "100%",
-    maxWidth: "400px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center", // Yatayda ortalama
-    gap: "10px",
-  },
-  button: {
-    padding: "15px",
-    backgroundColor: "#4CAF50",
-    color: "#fff",
-    fontSize: "16px",
-    border: "none",
-    borderRadius: "5px",
-    textAlign: "center",
-    cursor: "pointer",
-    width: "100%", // Butonlar genişliğe uyum sağlar
-  },
 };
 
 export default AnaSayfa;
