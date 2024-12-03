@@ -13,6 +13,10 @@ const KelimelerPage = () => {
     navigate("/kelimelerPage/derArtikel"); // Der Artikel sayfasına yönlendirme
   };
 
+  const handleDieArtikelClick = () => {
+    navigate("/kelimelerPage/dieArtikel"); // Die Artikel sayfasına yönlendirme
+  };
+
   return (
     <div className="flex flex-col items-center justify-center bg-gray-100 min-h-screen p-6">
       <h1 className="text-3xl font-bold text-green-600 mb-8">Kelimeler</h1>
@@ -27,9 +31,10 @@ const KelimelerPage = () => {
         </Button>
         <Button
           type="default"
+          onClick={handleDieArtikelClick}
           className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg h-12"
         >
-          Die Artikel 
+          Die Artikel
         </Button>
         <Button
           type="default"

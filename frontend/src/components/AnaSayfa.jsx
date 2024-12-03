@@ -9,8 +9,12 @@ const AnaSayfa = () => {
     navigate("/KelimelerPage"); // KelimelerPage sayfasına yönlendirme
   };
 
+  const handleOyunClick = () => {
+    navigate("/oyunPage"); // Oyun sayfasına yönlendirme
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-blue-100 p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-blue-300 p-4">
       <header className="mb-5 text-center">
         <img src={resim} alt="Örnek Resim" className="rounded-lg w-64 h-auto" />
       </header>
@@ -24,11 +28,14 @@ const AnaSayfa = () => {
         >
           Kelime Ekle
         </button>
-        <button className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg py-3">
-          Tekrar
+        <button
+          className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg py-3"
+          onClick={handleOyunClick}
+        >
+          Oyun
         </button>
         <button className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg py-3">
-          Oyun
+          Tekrar
         </button>
         <button className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg py-3">
           Bize Ulaşın
